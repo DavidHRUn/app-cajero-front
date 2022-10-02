@@ -1,0 +1,55 @@
+<ngx-spinner name="cajero" bdColor="rgba(74,195,232,0.64)" size="medium" color="#ffffff" type="square-jelly-box"
+    [fullScreen]="false">
+    <p style="color: rgb(255, 255, 255); margin-top: 2rem;"> Cargando </p>
+</ngx-spinner>
+
+<div class="container">
+    <section class="pt-5">
+        <div class="card">
+            <div class="card-header">
+                SALDO DE CAJERO: <span class="fw-bold h5">{{saldoCajero}}</span>
+            </div>
+            <div class="card-body">
+                <h2>
+                    Retirar Efectivo
+                </h2>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4 text-center">
+
+                        <div class="mb-2" *ngIf="saldoCajero > 0">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Cantidad a retirar</mat-label>
+                                <input matInput placeholder="Placeholder" [(ngModel)]="cantidadRetiro"
+                                    (keypress)="keyPressNumbers($event)">
+                            </mat-form-field>
+                        </div>
+                        <div class="text-center" *ngIf="saldoCajero == 0">
+                            <img [src]="urlEmpty" class="img-fluid w-50">
+                            <br>
+                            <label for="" class="fw-bold h5 mt-2">Sin fondos sucientes.</label>
+                        </div>
+                        <div class="d-inline">
+                            <ng-container *ngFor="let dinero of dineroDenominaciones">
+                                <button [disabled]="dinero.cantidad == 0" class="btn btn-primary m-2 ancho-btn" [matBadge]="dinero.cantidad" (click)="updateCantidadDinero(dinero.id!)">
+                                    {{dinero.denominacion}}
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"></div>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-danger me-1" (click)="resetDinero()"
+                        *ngIf="cantidadRetiro > 0 && cargandoTransaccion == false">
+                        <i class="fa-solid fa-xmark"></i> Borrar
+                    </button>
+                    <button class="btn btn-success" *ngIf="cantidadRetiro > 0"
+                        (click)="cargandoTransaccion = true; retirarDinero()" [disabled]="cargandoTransaccion">
+                        <i class="fa-solid fa-money-bill-trend-up"></i> Retirar efectivo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
