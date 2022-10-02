@@ -6,11 +6,11 @@
 <div class="container">
     <section class="pt-5">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success text-white">
                 SALDO DE CAJERO: <span class="fw-bold h5">{{saldoCajero}}</span>
             </div>
             <div class="card-body">
-                <h2>
+                <h2 class="text-uppercase">
                     Retirar Efectivo
                 </h2>
                 <div class="row">
@@ -20,14 +20,13 @@
                         <div class="mb-2" *ngIf="saldoCajero > 0">
                             <mat-form-field appearance="outline">
                                 <mat-label>Cantidad a retirar</mat-label>
-                                <input matInput placeholder="Placeholder" [(ngModel)]="cantidadRetiro"
-                                    (keypress)="keyPressNumbers($event)">
+                                <input readonly matInput placeholder="Placeholder" [(ngModel)]="cantidadRetiro">
                             </mat-form-field>
                         </div>
                         <div class="text-center" *ngIf="saldoCajero == 0">
                             <img [src]="urlEmpty" class="img-fluid w-50">
                             <br>
-                            <label for="" class="fw-bold h5 mt-2">Sin fondos sucientes.</label>
+                            <label class="fw-bold h5 mt-2">Sin fondos sucientes.</label>
                         </div>
                         <div class="d-inline">
                             <ng-container *ngFor="let dinero of dineroDenominaciones">

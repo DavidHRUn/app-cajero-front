@@ -73,8 +73,8 @@ export class CajeroComponent implements OnInit {
         let request: Dinero_Request = new Dinero_Request;
         request.dinero = this.dineroDenominaciones;
         this._cajeroService.retirarEfectivo(request).subscribe(response => {
-          if (response) {
-            console.log(response);
+          if (response.successfulResponse) {
+            this.obtenerDinero();
 
             this.cargandoTransaccion = false;
             this.cantidadRetiro = 0;
@@ -112,16 +112,6 @@ export class CajeroComponent implements OnInit {
 
     this.cantidadRetiro += Number(dinero?.denominacion!);
 
-  }
-
-  keyPressNumbers(event: any) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    if ((charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
   }
 
 }
