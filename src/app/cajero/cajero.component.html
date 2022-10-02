@@ -20,7 +20,7 @@
                         <div class="mb-2" *ngIf="saldoCajero > 0">
                             <mat-form-field appearance="outline">
                                 <mat-label>Cantidad a retirar</mat-label>
-                                <input readonly matInput placeholder="Placeholder" [(ngModel)]="cantidadRetiro">
+                                <input readonly matInput [(ngModel)]="cantidadRetiro">
                             </mat-form-field>
                         </div>
                         <div class="text-center" *ngIf="saldoCajero == 0">

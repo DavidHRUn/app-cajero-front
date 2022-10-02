@@ -17,7 +17,7 @@ export class CajeroComponent implements OnInit {
   saldoCajero: number = 12250;
   cargandoTransaccion: boolean = false;
   dineroDenominaciones: Dinero[] = [];
-  urlEmpty: string = `${PATHS_RESOURCE.GET_IMG_EMPTY}`;
+  urlEmpty: string = `${PATHS_RESOURCE.GET_IMG_ALERTS}empty.svg`;
   urlAlertas: string = `${PATHS_RESOURCE.GET_IMG_ALERTS}`;
 
   constructor(private _spinner: NgxSpinnerService,
@@ -29,13 +29,10 @@ export class CajeroComponent implements OnInit {
   }
 
   obtenerDinero() {
-
     this._cajeroService.getAllDinero().subscribe(response => {
       this.dineroDenominaciones = response.data as Dinero[];
-      console.log(response.data);
       this.calcularSaldoTotal();
     })
-
   }
 
   calcularSaldoTotal() {
@@ -69,7 +66,6 @@ export class CajeroComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._spinner.show("cajero");
-        // Transacción
         let request: Dinero_Request = new Dinero_Request;
         request.dinero = this.dineroDenominaciones;
         this._cajeroService.retirarEfectivo(request).subscribe(response => {
@@ -93,7 +89,6 @@ export class CajeroComponent implements OnInit {
 
       } else {
         this.cargandoTransaccion = false;
-
       }
     })
   }
@@ -109,9 +104,7 @@ export class CajeroComponent implements OnInit {
       console.log(dinero);
       dinero.cantidad = dinero.cantidad! - 1;
     }
-
     this.cantidadRetiro += Number(dinero?.denominacion!);
-
   }
 
 }
